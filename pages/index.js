@@ -1,5 +1,8 @@
 import Head from "next/head";
+import SwiperProv from "../components/SwiperProv";
 import clientPromise from "../lib/mongodb";
+import ResponsiveSlider from "../components/slider/ResponsiveSlider";
+import ResponsiveSliderList from "../components/slider/ResponsiveSliderList";
 
 export default function Home({ showbiz }) {
   console.log(showbiz);
@@ -15,6 +18,23 @@ export default function Home({ showbiz }) {
           Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
         </h1>
       </main>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="row-span-2 bg-red-500 ...">
+          {/* <SwiperProv /> */}
+          <ResponsiveSliderList>
+            <ResponsiveSlider
+              data={showbiz}
+              href={"/category/Aksion"}
+              categoryTitle={"Aksion"}
+            />
+          </ResponsiveSliderList>
+        </div>
+        <div class=" bg-gray-600 ...">2</div>
+        <div class=" bg-gray-600 ...">3</div>
+        <div class=" bg-gray-600 ...">4</div>
+        <div class=" bg-gray-600 ...">5</div>
+      </div>
 
       <div>
         {showbiz.map((article, i) => (
@@ -64,7 +84,7 @@ export async function getServerSideProps(context) {
     const result = await data
       .find({ category: categoryName })
       .sort({ _id: -1 })
-      .limit(20)
+      .limit(6)
       .toArray();
     return result;
     // console.log(result);
