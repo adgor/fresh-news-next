@@ -19,8 +19,8 @@ export default function Home({ showbiz }) {
         </h1>
       </main>
 
-      <div class="grid grid-cols-3 gap-4">
-        <div class="row-span-2 bg-red-500 ...">
+      <div class="grid grid-cols-4 gap-4">
+        <div class="row-span-2 col-span-2 bg-red-500 ...">
           {/* <SwiperProv /> */}
           <ResponsiveSliderList>
             <ResponsiveSlider

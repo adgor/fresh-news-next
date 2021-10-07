@@ -23,7 +23,6 @@ export default function ResponsiveSlider({ data, href }) {
   return (
     <>
       <div className="relative mx-auto mb-6 sm:mb-0">
-        <div className="text-center sm:text-left"></div>
         <Swiper
           spaceBetween={30}
           effect={"fade"}
@@ -45,7 +44,6 @@ export default function ResponsiveSlider({ data, href }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <span className="absolute w-full border-b border-gray-300 border-opacity-10"></span>
       </div>
     </>
   );
