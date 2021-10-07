@@ -4,22 +4,16 @@ import Link from "next/link";
 
 function ResponsiveSliderSingle({ href, title, img, category }) {
   return (
-    <div className="">
-      <div className="">
-        <a href="/" aria-label="View Item">
-          <div className="relative overflow-hidden">
-            <img
-              className="object-cover w-full h-56 md:h-64 xl:h-80"
-              src={img}
-              alt=""
-            />
-            <div className="absolute inset-x-0 bottom-0 px-6 py-4 pb-6 bg-black bg-opacity-60">
-              <p className="text-base font-bold tracking-wide text-white ">
-                {title}
-              </p>
-            </div>
-          </div>
-        </a>
+    <div className="group">
+      <img
+        className="object-cover object-top w-full h-56 md:h-64 xl:h-96"
+        src={img}
+        alt=""
+      />
+      <div className="absolute inset-x-0 bottom-0 px-6 py-8 transition duration-1000 group-hover:opacity-80 group-hover:text-white group-hover:duration-200 bg-gradient-to-t from-gray-900 ">
+        <p className="text-xl font-extrabold tracking-wide text-white cursor-pointer ">
+          {title}
+        </p>
       </div>
     </div>
 

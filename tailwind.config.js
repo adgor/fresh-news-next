@@ -5,7 +5,11 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      // ...
+      textOverflow: ["hover", "focus"],
+      gradientColorStops: ["active", "group-hover"],
+    },
   },
   plugins: [],
 };

@@ -1,67 +1,23 @@
 import Head from "next/head";
-import SwiperProv from "../components/SwiperProv";
 import clientPromise from "../lib/mongodb";
-import ResponsiveSlider from "../components/slider/ResponsiveSlider";
-import ResponsiveSliderList from "../components/slider/ResponsiveSliderList";
+import Hero from "../components/Hero";
 
-export default function Home({ showbiz }) {
-  console.log(showbiz);
+export default function Home({ showbiz, kuriozitete, mode, trend }) {
+  // console.log(kuriozitete);
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
-        </h1>
-      </main>
-
-      <div class="grid grid-cols-4 gap-4">
-        <div class="row-span-2 col-span-2 bg-red-500 ...">
-          {/* <SwiperProv /> */}
-          <ResponsiveSliderList>
-            <ResponsiveSlider
-              data={showbiz}
-              href={"/category/Aksion"}
-              categoryTitle={"Aksion"}
-            />
-          </ResponsiveSliderList>
-        </div>
-        <div class=" bg-gray-600 ...">2</div>
-        <div class=" bg-gray-600 ...">3</div>
-        <div class=" bg-gray-600 ...">4</div>
-        <div class=" bg-gray-600 ...">5</div>
-      </div>
-
-      <div>
-        {showbiz.map((article, i) => (
-          <div key={i}>
-            <h3>{article.title}</h3>
-            <span>{article.category}</span>
-            {article.content.map((cat, i) => (
-              <p key={i}>
-                <span>{cat}</span>
-              </p>
-            ))}
-            <span> {} </span>
-          </div>
-        ))}
-      </div>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-    </div>
+      <Hero
+        articles={showbiz}
+        kuriozitete={kuriozitete}
+        mode={mode}
+        trend={trend}
+      />
+    </>
   );
 }
 
@@ -80,11 +36,11 @@ export async function getServerSideProps(context) {
   // console.log(data);
 
   // function to get category movies call it in the props
-  async function asyncGetCategory(categoryName) {
+  async function asyncGetCategory(categoryName, limit = 1) {
     const result = await data
       .find({ category: categoryName })
       .sort({ _id: -1 })
-      .limit(6)
+      .limit(limit)
       .toArray();
     return result;
     // console.log(result);
@@ -94,8 +50,13 @@ export async function getServerSideProps(context) {
   return {
     props: {
       showbiz: JSON.parse(
-        JSON.stringify(await asyncGetCategory("kuriozitete"))
+        JSON.stringify(await asyncGetCategory("showbiz", 10))
       ),
+      kuriozitete: JSON.parse(
+        JSON.stringify(await asyncGetCategory("kuriozitete", 1))
+      ),
+      mode: JSON.parse(JSON.stringify(await asyncGetCategory("mode", 1))),
+      trend: JSON.parse(JSON.stringify(await asyncGetCategory("trend", 1))),
     },
   };
 }
