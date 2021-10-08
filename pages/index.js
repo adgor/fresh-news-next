@@ -1,6 +1,7 @@
 import Head from "next/head";
 import clientPromise from "../lib/mongodb";
 import Hero from "../components/Hero";
+import { Blog } from "../components/Blog";
 
 export default function Home({ showbiz, kuriozitete, mode, trend }) {
   // console.log(kuriozitete);
@@ -17,6 +18,10 @@ export default function Home({ showbiz, kuriozitete, mode, trend }) {
         mode={mode}
         trend={trend}
       />
+      <Blog data={showbiz} />
+      <Blog data={kuriozitete} />
+      <Blog data={mode} />
+      <Blog data={trend} />
     </>
   );
 }
