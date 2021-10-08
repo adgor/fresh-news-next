@@ -3,7 +3,16 @@ import clientPromise from "../lib/mongodb";
 import Hero from "../components/Hero";
 import { Blog } from "../components/Blog";
 
-export default function Home({ showbiz, kuriozitete, mode, trend }) {
+export default function Home({
+  showbiz,
+  kuriozitete,
+  mode,
+  trend,
+  showbizBlog,
+  modeBlog,
+  trendBlog,
+  kurioziteteBlog,
+}) {
   // console.log(kuriozitete);
   return (
     <>
@@ -18,10 +27,15 @@ export default function Home({ showbiz, kuriozitete, mode, trend }) {
         mode={mode}
         trend={trend}
       />
-      <Blog data={showbiz} />
-      <Blog data={kuriozitete} />
-      <Blog data={mode} />
-      <Blog data={trend} />
+
+      <p>showbizBlog</p>
+      <Blog data={showbizBlog} />
+      <p>modeBlog</p>
+      <Blog data={modeBlog} />
+      <p>trendBlog</p>
+      <Blog data={trendBlog} />
+      <p>kurioziteteBlog</p>
+      <Blog data={kurioziteteBlog} />
     </>
   );
 }
@@ -41,10 +55,11 @@ export async function getServerSideProps(context) {
   // console.log(data);
 
   // function to get category movies call it in the props
-  async function asyncGetCategory(categoryName, limit = 1) {
+  async function asyncGetCategory(categoryName, limit = 1, skip = 0) {
     const result = await data
       .find({ category: categoryName })
       .sort({ _id: -1 })
+      .skip(skip)
       .limit(limit)
       .toArray();
     return result;
@@ -57,11 +72,23 @@ export async function getServerSideProps(context) {
       showbiz: JSON.parse(
         JSON.stringify(await asyncGetCategory("showbiz", 10))
       ),
+      mode: JSON.parse(JSON.stringify(await asyncGetCategory("mode", 1))),
+      trend: JSON.parse(JSON.stringify(await asyncGetCategory("trend", 1))),
       kuriozitete: JSON.parse(
         JSON.stringify(await asyncGetCategory("kuriozitete", 1))
       ),
-      mode: JSON.parse(JSON.stringify(await asyncGetCategory("mode", 1))),
-      trend: JSON.parse(JSON.stringify(await asyncGetCategory("trend", 1))),
+      showbizBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("showbiz", 3, 10))
+      ),
+      modeBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("mode", 3, 1))
+      ),
+      trendBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("trend", 3, 1))
+      ),
+      kurioziteteBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("kuriozitete", 3, 1))
+      ),
     },
   };
 }
