@@ -2,16 +2,20 @@ import Head from "next/head";
 import clientPromise from "../lib/mongodb";
 import Hero from "../components/Hero";
 import { Blog } from "../components/Blog";
+import { BlogTrend } from "../components/BlogTrend";
 
 export default function Home({
   showbiz,
-  kuriozitete,
   mode,
   trend,
+  kuriozitete,
+  teknologji,
   showbizBlog,
   modeBlog,
   trendBlog,
   kurioziteteBlog,
+  teknologjiBlog,
+  teFundit,
 }) {
   // console.log(kuriozitete);
   return (
@@ -26,15 +30,14 @@ export default function Home({
         kuriozitete={kuriozitete}
         mode={mode}
         trend={trend}
+        teknologji={teknologji}
       />
 
-      <p>showbizBlog</p>
       <Blog data={showbizBlog} />
-      <p>modeBlog</p>
       <Blog data={modeBlog} />
-      <p>trendBlog</p>
+      <BlogTrend trend={trend} teFundit={teFundit} />
       <Blog data={trendBlog} />
-      <p>kurioziteteBlog</p>
+      <Blog data={teknologjiBlog} />
       <Blog data={kurioziteteBlog} />
     </>
   );
@@ -74,6 +77,9 @@ export async function getServerSideProps(context) {
       ),
       mode: JSON.parse(JSON.stringify(await asyncGetCategory("mode", 1))),
       trend: JSON.parse(JSON.stringify(await asyncGetCategory("trend", 1))),
+      teknologji: JSON.parse(
+        JSON.stringify(await asyncGetCategory("teknologji", 1))
+      ),
       kuriozitete: JSON.parse(
         JSON.stringify(await asyncGetCategory("kuriozitete", 1))
       ),
@@ -88,6 +94,12 @@ export async function getServerSideProps(context) {
       ),
       kurioziteteBlog: JSON.parse(
         JSON.stringify(await asyncGetCategory("kuriozitete", 3, 1))
+      ),
+      teknologjiBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("teknologji", 3, 1))
+      ),
+      teFundit: JSON.parse(
+        JSON.stringify(await asyncGetCategory("kuriozitete", 3))
       ),
     },
   };

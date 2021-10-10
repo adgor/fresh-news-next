@@ -2,6 +2,10 @@ import Home from "../pages";
 export const Blog = ({ data }) => {
   return (
     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 capitalize sm:text-4xl sm:leading-none">
+        {data[0].category}
+      </h2>
+
       <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
         {data.map((article) => (
           <div
