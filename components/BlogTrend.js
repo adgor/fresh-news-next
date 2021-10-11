@@ -25,36 +25,36 @@ export const BlogTrend = ({ trend, teFundit }) => {
             <div className="relative h-full group ">
               <img
                 className="absolute object-cover object-top w-full h-full "
-                src={trend[0].imgLink}
+                src={trend[1].imgLink}
                 alt=""
               />
               <div className="absolute inset-x-0 bottom-0 px-6 pt-8 pb-4 transition duration-1000 group-hover:opacity-80 group-hover:text-white group-hover:duration-200 bg-gradient-to-t from-gray-900">
                 <p className="text-base font-extrabold tracking-wide text-white cursor-pointer ">
-                  {trend[0].title}
+                  {trend[1].title}
                 </p>
               </div>
             </div>
             <div className="relative h-full group ">
               <img
                 className="absolute object-cover object-top w-full h-full "
-                src={trend[0].imgLink}
+                src={trend[2].imgLink}
                 alt=""
               />
               <div className="absolute inset-x-0 bottom-0 px-6 pt-8 pb-4 transition duration-1000 group-hover:opacity-80 group-hover:text-white group-hover:duration-200 bg-gradient-to-t from-gray-900">
                 <p className="text-base font-extrabold tracking-wide text-white cursor-pointer ">
-                  {trend[0].title}
+                  {trend[2].title}
                 </p>
               </div>
             </div>
             <div className="relative h-full group ">
               <img
                 className="absolute object-cover object-top w-full h-full "
-                src={trend[0].imgLink}
+                src={trend[3].imgLink}
                 alt=""
               />
               <div className="absolute inset-x-0 bottom-0 px-6 pt-8 pb-4 transition duration-1000 group-hover:opacity-80 group-hover:text-white group-hover:duration-200 bg-gradient-to-t from-gray-900">
                 <p className="text-base font-extrabold tracking-wide text-white cursor-pointer ">
-                  {trend[0].title}
+                  {trend[3].title}
                 </p>
               </div>
             </div>

@@ -35,10 +35,9 @@ export default function Home({
 
       <Blog data={showbizBlog} />
       <Blog data={modeBlog} />
-      <BlogTrend trend={trend} teFundit={teFundit} />
-      <Blog data={trendBlog} />
+      <BlogTrend trend={trendBlog} teFundit={teFundit} />
       <Blog data={teknologjiBlog} />
-      <Blog data={kurioziteteBlog} />
+      <Blog data={kurioziteteBlog} cols={"lg:grid-cols-4"} />
     </>
   );
 }
@@ -58,9 +57,9 @@ export async function getServerSideProps(context) {
   // console.log(data);
 
   // function to get category movies call it in the props
-  async function asyncGetCategory(categoryName, limit = 1, skip = 0) {
+  async function asyncGetCategory(category, limit = 1, skip = 0) {
     const result = await data
-      .find({ category: categoryName })
+      .find({ category })
       .sort({ _id: -1 })
       .skip(skip)
       .limit(limit)
@@ -68,7 +67,17 @@ export async function getServerSideProps(context) {
     return result;
     // console.log(result);
   }
-  asyncGetCategory();
+  async function getLast(limit = 1, skip = 0) {
+    const result = await data
+      .find()
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+    return result;
+    // console.log(result);
+  }
+  // asyncGetCategory();
 
   return {
     props: {
@@ -90,17 +99,15 @@ export async function getServerSideProps(context) {
         JSON.stringify(await asyncGetCategory("mode", 3, 1))
       ),
       trendBlog: JSON.parse(
-        JSON.stringify(await asyncGetCategory("trend", 3, 1))
-      ),
-      kurioziteteBlog: JSON.parse(
-        JSON.stringify(await asyncGetCategory("kuriozitete", 3, 1))
+        JSON.stringify(await asyncGetCategory("trend", 4, 1))
       ),
       teknologjiBlog: JSON.parse(
         JSON.stringify(await asyncGetCategory("teknologji", 3, 1))
       ),
-      teFundit: JSON.parse(
-        JSON.stringify(await asyncGetCategory("kuriozitete", 3))
+      kurioziteteBlog: JSON.parse(
+        JSON.stringify(await asyncGetCategory("kuriozitete", 8, 1))
       ),
+      teFundit: JSON.parse(JSON.stringify(await getLast(6))),
     },
   };
 }
